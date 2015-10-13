@@ -74,3 +74,7 @@ else:
 
 #print the end result of calling morseString on phrase
 print(morseString(phrase))
+
+
+#todo
+#add file mode "-f" option.
