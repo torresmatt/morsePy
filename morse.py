@@ -43,7 +43,6 @@ morseDict = {
 }
 
 def morseChar(c):
-	result = ""
 	# if c is a key in the dictionary, return its value
 	if c in morseDict.keys():
 		return morseDict[c]
