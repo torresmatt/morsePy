@@ -46,6 +46,8 @@ def morseChar(c):
 	# if c is a key in the dictionary, return its value
 	if c in morseDict.keys():
 		return morseDict[c]
+	else:
+		return '*'
 
 def morseString(original):
 	# result string to be built and returned
@@ -60,21 +62,49 @@ def morseString(original):
 			result += morseChar(c) + "|"
 	return result
 
+def fileMode():
+	if (len(sys.argv) < 4):
+		print "Not enough arguments!"
+		print helpMenu()
+
+def inputMode():
+	print(morseString(raw_input("Enter phrase: ").upper()))
+
+
+#generates a help menu for when program is launched wrong
+def helpMenu():
+	result = "";
+	#build it line by line
+	result += "Usage:\n"
+	result += "------\n"
+	result += "USER INPUT PHRASE:\n"
+	result += "python morse.py (no arguments)\n"
+	result += "Prompts user for phrase and outputs morse version of phrase to screen.\n"
+	result += "\n"
+	result += "PARAMETER PHRASE:\n"
+	result += "python morse.py <some phrase>\n"
+	result += "All parameters are treated as a single phrase and output to screen in morse.\n"
+	result += "\n"
+	result += "FILE MODE:\n"
+	result += "python morse.py -f <input filename> <output filename>\n"
+	result += "Input file is opened, translated to morse and output to output file.\n"
+	return result
 #main program here
 
-#remember argv always has at least the name of the program, check for more
-#if more than default param, assign remainder of argv as string to phrase variable
-if (len(sys.argv) > 1):
-	#assign uppercase version of args to phrase
-	phrase = str(sys.argv[1:]).upper()
-#else, get a phrase from the user
+#if argv length is 1 no params were passed. Do phrase mode.
+if (len(sys.argv) == 1):
+	inputMode()
+#if argv length is more than 1, they either want file mode or param phrase mode.
+elif (len(sys.argv) > 1):
+	# if first param is -f do file mode
+	if (sys.argv[1] == "-f"):
+		fileMode()
+	# if first param is not -f, just do the rest as a phrase
+	else:
+		phrase = ' '.join(sys.argv[1:]).upper()
+		print morseString(phrase)
 else:
-	# otherwise there are no args, so get a string from user
-	phrase = input("Enter a phrase: ").upper()
-
-#print the end result of calling morseString on phrase
-print(morseString(phrase))
-
+	print(helpMenu())
 
 #todo
 #add file mode "-f" option.
