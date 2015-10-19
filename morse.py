@@ -132,6 +132,3 @@ elif (len(sys.argv) > 1):
 		print(morseString(phrase))
 else:
 	print(helpMenu())
-
-#todo
-#add file mode "-f" option.
